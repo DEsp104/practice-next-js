@@ -7,7 +7,7 @@ const ArticleList = ({articles}) => {
        {/* Create items of articles fetched from the api */}
        {articles.map((article) => (
         // Pass in the ArticleItem component
-        // Pass the article attribute containing the data from the ap
+        // Pass the article attribute containing the data from the api
         // eslint-disable-next-line react/jsx-key
         <ArticleItem article={article} />
       ))}
