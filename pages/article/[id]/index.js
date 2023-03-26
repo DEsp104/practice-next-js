@@ -1,6 +1,8 @@
+import { server } from '../../../config/index'
 import Link from 'next/link';
 // To retrieve the id
 import { useRouter } from 'next/router';
+import Meta from '../../../components/Meta'
 
 // pass in the article prop coming from the getServerSideProps()
 const article = ({article}) => {
@@ -13,6 +15,8 @@ const article = ({article}) => {
 
   return (
     <>
+      {/* Add Meta title from the article title and description based on the article as well */}
+      <Meta title={article.title} description={article.excerpt} />
       <h1>{article.title}</h1>
       <p>{article.body}</p>
       <br />
@@ -41,8 +45,46 @@ const article = ({article}) => {
 // article will turn the data into json
 // return an object with props. props is also an object which will contain the data (article) from api
 // getStaticProps() & getStaticPaths() are going to dynamically generate the path with the data
+// export const getStaticProps = async (context) => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${context.params.id}`);
+
+//   const article = await res.json();
+
+//   return {
+//     props: {
+//       article
+//     }
+//   }
+// }
+
+// benefit of this it will fetch data much faster at build time
+// we're getting all the posts from the api
+// getStaticPaths will generate all the paths for all the article in the api thus making the data available already, statically
+// export const getStaticPaths = async () => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+//   const articles = await res.json();
+
+//   // return an array of article ids only
+//   const ids = articles.map(article => article.id);
+
+//   // map the ids and for each id return an object with param and inside param there should be another object containing id in the form of string
+//   // the variable 'paths' should contain the following as an example =>  {params: {id: '1', id: '2', id: '3',........}}
+//   const paths = ids.map(id => ({ params: { id: id.toString() } }));
+
+  
+//   // take the data return from api, which is an array, and pass into the paths containing the params
+//   // fallback false will give a 404 page if something in the fetched data doesnt exist
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
+
+
+
+// Instead of fetching data from the third party api, we're going to fetch data from data dummy we set in the data.js file
 export const getStaticProps = async (context) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${context.params.id}`);
+  const res = await fetch(`${server}/api/articles/${context.params.id}`);
 
   const article = await res.json();
 
@@ -53,11 +95,8 @@ export const getStaticProps = async (context) => {
   }
 }
 
-// benefit of this it will fetch data much faster at build time
-// we're getting all the posts from the api
-// getStaticPaths will generate all the paths for all the article in the api thus making the data available already, statically
 export const getStaticPaths = async () => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+  const res = await fetch(`${server}/api/articles`);
   const articles = await res.json();
 
   // return an array of article ids only
@@ -75,6 +114,9 @@ export const getStaticPaths = async () => {
     fallback: false
   }
 }
+
+
+
 
 
 

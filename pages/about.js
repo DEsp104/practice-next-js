@@ -1,4 +1,5 @@
-import Head from "next/head";
+// import Head from "next/head";
+import Meta from '../components/Meta'
 
 
 
@@ -7,9 +8,11 @@ import Head from "next/head";
 const about = () => {
   return (
     <div>
-      <Head>
+      {/* <Head>
         <title>About</title>
-      </Head>
+      </Head> */}
+      {/* We imported Meta to bypass the title default and give this page a unique title like 'About'. You can by pass description or keywords as well */}
+       <Meta title='About' />
        <h1>About</h1>
     </div>
   )

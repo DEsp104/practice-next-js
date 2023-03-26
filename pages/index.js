@@ -1,6 +1,6 @@
 import { server } from '../config';
 // Head is use for custom title, meta tags, keywords or descriptions
-import Head from 'next/head';
+// import Head from 'next/head';
 import ArticleList from '../components/ArticleList';
 
 
@@ -8,10 +8,10 @@ import ArticleList from '../components/ArticleList';
 export default function Home({ articles }) {
   return (
     <div>
-      <Head> 
+      {/* <Head> 
         <title>WebDev Newz</title>
         <meta name="keywords" content="web developement, programming" />
-      </Head>
+      </Head> */}
       
       {/* Import the component containing the list of items. Pass an attribute 'articles' to pass the list of items to the ArticleList component */}
       <ArticleList articles={articles} />
